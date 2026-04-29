@@ -1,0 +1,319 @@
+/* ============================================
+   VARIABLES GLOBALES 
+   ============================================ */
+:root {
+    --color-primary: #667eea;
+    --color-primary-dark: #5a67d8;
+    --color-secondary: #764ba2;
+    --color-success: #4caf50;
+    --color-danger: #f44336;
+    --color-warning: #ff9800;
+    --color-info: #2196f3;
+    --color-dark: #333;
+    --color-gray: #666;
+    --color-light: #f0f2f5;
+    --color-white: #fff;
+    --color-border: #ddd;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --border-radius: 20px;
+    --transition: all 0.3s ease;
+}
+
+/* ============================================
+   RESET Y ESTILOS BASE
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--color-light);
+    padding: 20px;
+}
+
+/* ============================================
+   CONTENEDOR PRINCIPAL (wrapper del POS)
+   ============================================ */
+.pos-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: var(--color-white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+/* ============================================
+   HEADER (título + info vendedor + botón salir)
+   ============================================ */
+header {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: var(--color-white);
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+}
+
+.vendedor-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-weight: bold;
+}
+
+#btnCerrarSesion {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: var(--transition);
+}
+#btnCerrarSesion:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(1.02);
+}
+
+/* ============================================
+   MAIN (dos columnas: izquierda = carrito, derecha = pago)
+   ============================================ */
+.pos-main {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Panel izquierdo (carrito) */
+.panel-izquierdo {
+    flex: 2;
+    min-width: 300px;
+    padding: 20px;
+    border-right: 1px solid var(--color-border);
+}
+
+/* Panel derecho (pago y acciones) */
+.panel-derecho {
+    flex: 1;
+    min-width: 280px;
+    padding: 20px;
+    background: #fafafa;
+}
+
+/* ============================================
+   BUSCADOR (input + botón Agregar)
+   ============================================ */
+.buscador {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.buscador input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 2px solid var(--color-border);
+    border-radius: 10px;
+    font-size: 16px;
+    transition: var(--transition);
+}
+.buscador input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+}
+#btnAgregar {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 0 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transition);
+}
+#btnAgregar:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-2px);
+}
+
+/* ============================================
+   CARRITO (tabla, total)
+   ============================================ */
+.carrito h3 {
+    margin-bottom: 10px;
+    color: var(--color-dark);
+}
+.carrito table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+.carrito th, .carrito td {
+    border: 1px solid var(--color-border);
+    padding: 8px;
+    text-align: center;
+}
+.carrito th {
+    background: var(--color-primary);
+    color: white;
+    font-weight: 600;
+}
+.total-box {
+    text-align: right;
+    font-size: 1.8rem;
+    font-weight: bold;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+#totalCarrito {
+    color: var(--color-success);
+}
+
+/* Botón eliminar producto en carrito */
+.carrito td button {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.carrito td button:hover {
+    transform: scale(1.2);
+}
+
+/* ============================================
+   PANEL DERECHO: PAGO (efectivo, cambio)
+   ============================================ */
+.pago-box {
+    margin-bottom: 20px;
+}
+.pago-box label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: 600;
+    color: var(--color-gray);
+}
+.pago-box input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    font-size: 1rem;
+}
+.pago-box input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+/* ============================================
+   BOTONES DE ACCIÓN (Vender, Cancelar venta, Admin)
+   ============================================ */
+.acciones button {
+    width: 100%;
+    margin: 10px 0;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.acciones button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+.btn-verde {
+    background: var(--color-success);
+    color: white;
+}
+.btn-rojo {
+    background: var(--color-danger);
+    color: white;
+}
+.btn-naranja {
+    background: var(--color-warning);
+    color: white;
+}
+
+/* ============================================
+   CAMPO CLIENTE (opcional)
+   ============================================ */
+.cliente-box {
+    margin-top: 15px;
+}
+.cliente-box label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: var(--color-gray);
+}
+.cliente-box input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+}
+
+/* ============================================
+   MODAL DE NOTIFICACIONES (tareas)
+   ============================================ */
+#modalNotificacion {
+    display: none;
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    max-width: 400px;
+    text-align: center;
+}
+#modalNotificacion h3 {
+    color: var(--color-warning);
+    margin-bottom: 10px;
+}
+#modalNotificacion p {
+    margin-bottom: 15px;
+}
+#cerrarNotificacion {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* ============================================
+   RESPONSIVE (para móviles)
+   ============================================ */
+@media (max-width: 800px) {
+    .pos-main {
+        flex-direction: column;
+    }
+    .panel-izquierdo {
+        border-right: none;
+        border-bottom: 1px solid var(--color-border);
+    }
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+}

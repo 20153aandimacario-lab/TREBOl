@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Vendedores - Minimarket</title>
+    <link rel="stylesheet" href="vendedores.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>👥 Gestión de Vendedores</h1>
+            <button class="btn-cerrar" onclick="cerrarVentana()">✖ Cerrar</button>
+        </div>
+
+        <!-- Formulario para crear/editar vendedor (sin horarios) -->
+        <div class="form-card">
+            <h2>📝 Registrar / Editar Vendedor</h2>
+            <form id="formVendedor">
+                <input type="hidden" id="vendedorId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Usuario *</label>
+                        <input type="text" id="username" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label>Contraseña *</label>
+                        <input type="password" id="password" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Tareas fijas (opcional)</label>
+                    <textarea id="tareas" rows="2" placeholder="Ej: Reponer góndolas, limpiar caja..."></textarea>
+                </div>
+                <div class="botones-form">
+                    <button type="submit" class="btn-guardar">💾 Guardar Vendedor</button>
+                    <button type="button" class="btn-cancelar" onclick="resetForm()">🗑️ Cancelar</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Listado de vendedores -->
+        <div class="listado-card">
+            <h2>📋 Lista de Vendedores (Máximo 3)</h2>
+            <div id="mensajeLimite" class="mensaje-limite"></div>
+            <table class="tabla-vendedores">
+                <thead>
+                    <tr>
+                        <th>Usuario</th>
+                        <th>Tareas fijas</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaBody"></tbody>
+            </table>
+        </div>
+
+        <!-- SECCIÓN PARA ENVIAR TAREAS/RECORDATORIOS AL VENDEDOR (POS) -->
+        <div class="form-card">
+            <h2>📢 Enviar tarea o recordatorio al vendedor (se verá en el POS)</h2>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Vendedor destinatario</label>
+                    <select id="selectVendedorTarea">
+                        <option value="">-- Seleccionar --</option>
+                    </select>
+                </div>
+                <div class="form-group" style="flex:2;">
+                    <label>Mensaje / Tarea</label>
+                    <input type="text" id="textoTarea" placeholder="Ej: Lavar el pasillo, Reponer bebidas, Revisar caducados...">
+                </div>
+                <div class="form-group" style="flex:0;">
+                    <button id="btnEnviarTarea" class="btn-guardar">✉️ Enviar</button>
+                </div>
+            </div>
+            <div id="mensajeEnvio" style="margin-top: 10px; font-size: 13px; color: green; display: none;">✅ Tarea enviada correctamente</div>
+        </div>
+    </div>
+
+    <script src="vendedores.js"></script>
+</body>
+</html>

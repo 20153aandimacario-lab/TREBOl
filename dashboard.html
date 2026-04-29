@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Dashboard - Minimarket</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <!-- Chart.js CDN para gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <header>
+            <h1>📊 Panel de Control - Minimarket</h1>
+            <button id="btnCerrar" class="btn-cerrar">✖ Cerrar</button>
+        </header>
+
+        <!-- Filtros -->
+        <div class="filtros">
+            <div class="filtro-group">
+                <label>Período:</label>
+                <select id="periodo">
+                    <option value="hoy">Hoy</option>
+                    <option value="semana" selected>Últimos 7 días</option>
+                    <option value="mes">Últimos 30 días</option>
+                    <option value="personalizado">Personalizado</option>
+                </select>
+            </div>
+            <div id="fechasPersonalizado" style="display:none;">
+                <div class="filtro-group">
+                    <label>Desde:</label>
+                    <input type="date" id="fechaDesde">
+                </div>
+                <div class="filtro-group">
+                    <label>Hasta:</label>
+                    <input type="date" id="fechaHasta">
+                </div>
+            </div>
+            <div class="filtro-group">
+                <label>Vendedor:</label>
+                <select id="filtroVendedor">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+            <button id="btnActualizar" class="btn-actualizar">🔄 Actualizar</button>
+        </div>
+
+        <!-- Tarjetas de KPI -->
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <h3>💰 Ventas (período)</h3>
+                <p id="totalVentasPeriodo">Q0.00</p>
+                <small>Total recaudado</small>
+            </div>
+            <div class="kpi-card">
+                <h3>🧾 N° Ventas</h3>
+                <p id="numVentasPeriodo">0</p>
+                <small>Transacciones</small>
+            </div>
+            <div class="kpi-card">
+                <h3>📦 Productos vendidos</h3>
+                <p id="productosVendidosPeriodo">0</p>
+                <small>Unidades</small>
+            </div>
+            <div class="kpi-card">
+                <h3>⚠️ Stock bajo</h3>
+                <p id="stockBajoCount">0</p>
+                <small>Productos con &lt;5 unidades</small>
+            </div>
+            <div class="kpi-card">
+                <h3>🏪 Valor inventario</h3>
+                <p id="valorInventarioTotal">Q0.00</p>
+                <small>Precio de costo</small>
+            </div>
+            <div class="kpi-card">
+                <h3>📉 Pérdidas (período)</h3>
+                <p id="perdidasPeriodo">Q0.00</p>
+                <small>Productos dañados</small>
+            </div>
+        </div>
+
+        <!-- Gráficos y tablas -->
+        <div class="dashboard-row">
+            <div class="panel mitad">
+                <h2>📈 Ventas diarias</h2>
+                <canvas id="ventasDiariasChart" width="400" height="250"></canvas>
+            </div>
+            <div class="panel mitad">
+                <h2>🏆 Top 5 productos más vendidos</h2>
+                <canvas id="topProductosChart" width="400" height="250"></canvas>
+            </div>
+        </div>
+
+        <div class="dashboard-row">
+            <div class="panel">
+                <h2>📋 Productos con stock bajo (&lt;5 unidades)</h2>
+                <div class="table-wrapper">
+                    <table id="tablaStockBajo">
+                        <thead>
+                            <tr><th>Producto</th><th>Stock actual (unds)</th><th>Código</th></tr>
+                        </thead>
+                        <tbody id="stockBajoBody"></tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel">
+                <h2>⚠️ Últimas pérdidas registradas</h2>
+                <div class="table-wrapper">
+                    <table id="tablaPerdidas">
+                        <thead>
+                            <tr><th>Producto</th><th>Cantidad</th><th>Tipo</th><th>Fecha</th></tr>
+                        </thead>
+                        <tbody id="perdidasBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resumen por vendedor -->
+        <div class="panel">
+            <h2>👥 Ventas por vendedor (período)</h2>
+            <div class="table-wrapper">
+                <table id="tablaVendedores">
+                    <thead>
+                        <tr><th>Vendedor</th><th>N° Ventas</th><th>Total vendido</th></tr>
+                    </thead>
+                    <tbody id="vendedoresBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

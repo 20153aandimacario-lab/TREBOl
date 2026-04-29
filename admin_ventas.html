@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Ventas - Minimarket</title>
+    <link rel="stylesheet" href="admin_ventas.css">
+</head>
+<body>
+    <div class="admin-container">
+        <header>
+            <h1>📊 Administración de Ventas (TREBOL)</h1>
+            <button id="btnCerrar" class="btn-cerrar">✖ Cerrar</button>
+        </header>
+
+        <div class="filtros">
+            <div class="filtro-group">
+                <label>Desde:</label>
+                <input type="date" id="fechaDesde">
+            </div>
+            <div class="filtro-group">
+                <label>Hasta:</label>
+                <input type="date" id="fechaHasta">
+            </div>
+            <div class="filtro-group">
+                <label>Vendedor:</label>
+                <select id="filtroVendedor">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+            <button id="btnFiltrar" class="btn-filtrar">🔍 Filtrar</button>
+            <button id="btnLimpiar" class="btn-limpiar">🗑️ Limpiar</button>
+            <button id="btnCerrarDia" class="btn-cerrar-dia">🔒 Cerrar día</button>
+        </div>
+
+        <div class="resumen">
+            <div class="card-resumen">
+                <h3>💰 Total ventas</h3>
+                <p id="totalVentas">Q0</p>
+            </div>
+            <div class="card-resumen">
+                <h3>🧾 Número de ventas</h3>
+                <p id="numVentas">0</p>
+            </div>
+            <div class="card-resumen">
+                <h3>📅 Período</h3>
+                <p id="periodo">Hoy</p>
+            </div>
+        </div>
+
+        <div class="tabla-container">
+            <table id="tablaVentas">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Fecha/Hora</th>
+                        <th>Vendedor</th>
+                        <th>Cliente</th>
+                        <th>Total (Q)</th>
+                        <th>Productos</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaVentasBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="admin_ventas.js"></script>
+</body>
+</html>

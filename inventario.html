@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Inventario - Minimarket</title>
+    <link rel="stylesheet" href="inventario.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📦 Inventario - Minimarket</h1>
+            <div class="header-buttons">
+                <button class="btn btn-backup" onclick="exportarBackup()">💾 Guardar Backup</button>
+                <button class="btn btn-restore" onclick="importarBackup()">📂 Restaurar Backup</button>
+                <button class="btn btn-danger" onclick="cerrarVentana()">✖ Cerrar</button>
+            </div>
+        </div>
+
+        <!-- Panel de búsqueda por código -->
+        <div class="search-panel">
+            <div class="codigo-search">
+                <input type="text" id="codigoBusqueda" placeholder="🔢 Buscar por código (últimos dígitos: 424, 6424...)" autocomplete="off" onkeyup="buscarPorCodigo(this.value)">
+                <button id="btnScannerBusqueda" class="btn btn-primary">📷 Escanear</button>
+            </div>
+            <select id="categoriaFilter" onchange="filtrarPorCategoria()">
+                <option value="">📋 Todas las categorías</option>
+            </select>
+            <button class="btn btn-primary" onclick="abrirModalAgregar()">➕ Agregar Producto</button>
+            <button class="btn btn-warning" onclick="abrirModalCategorias()">🏷️ Gestionar Categorías</button>
+            <button class="btn btn-secondary" onclick="abrirModalUnidades()">📏 Unidades de Medida</button>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="action-buttons">
+            <button class="btn btn-primary" onclick="abrirModalFactura()">🧾 Agregar por Factura</button>
+            <button class="btn btn-info" onclick="abrirModalAjuste()">📦 Ajustar Productos</button>
+            <button class="btn btn-warning" onclick="abrirModalPerdidas()">⚠️ Registrar Pérdidas</button>
+        </div>
+
+        <!-- Tabla de inventario -->
+        <div class="table-container">
+            <table id="inventarioTable">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Categoría</th>
+                        <th>Unidad</th>
+                        <th>P.Compra (caja)</th>
+                        <th>P.Unit Compra</th>
+                        <th>P.Mayorista (caja)</th>
+                        <th>P.Unit CF</th>
+                        <th>Stock (Cajas/Unid)</th>
+                        <th>Stock Total</th>
+                        <th>Valor Inventario</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaBody"></tbody>
+            </table>
+        </div>
+
+        <!-- Estadísticas -->
+        <div class="stats">
+            <div class="stat-card"><span>📦 Total Productos:</span><strong id="totalProductos">0</strong></div>
+            <div class="stat-card"><span>💰 Valor Inventario:</span><strong id="valorInventario">Q0</strong></div>
+            <div class="stat-card"><span>⚠️ Productos Dañados:</span><strong id="totalDanados">0</strong></div>
+            <div class="stat-card"><span>📊 Stock Bajo (&lt;5):</span><strong id="stockBajo">0</strong></div>
+        </div>
+    </div>
+
+    <!-- MODAL AGREGAR/EDITAR PRODUCTO -->
+    <div id="modalProducto" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header">
+                <h2 id="modalTitulo">Agregar Producto</h2>
+                <span class="close" onclick="cerrarModalProducto()">&times;</span>
+            </div>
+            <form id="productoForm">
+                <div class="form-row">
+                    <div class="form-group"><label>Código de barras:</label><input type="text" id="codigo" placeholder="Escanear código" autocomplete="off" required></div>
+                    <div class="form-group"><label>Nombre:</label><input type="text" id="nombre" required></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Categoría:</label><select id="categoria" required></select></div>
+                    <div class="form-group"><label>Unidad de medida:</label><select id="unidadMedida" required></select></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Precio compra (por caja):</label><input type="number" id="precioCompra" step="0.01" required></div>
+                    <div class="form-group"><label>Precio mayorista (por caja):</label><input type="number" id="precioMayorista" step="0.01" required></div>
+                    <div class="form-group"><label>Precio unitario CF (por unidad):</label><input type="number" id="precioUnitarioCF" step="0.01" required></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group"><label>Stock inicial (Cajas):</label><input type="number" id="stockCajas" value="0" min="0" max="100"></div>
+                    <div class="form-group"><label>Stock inicial (Unidades):</label><input type="number" id="stockUnidades" value="0" min="0" max="99"></div>
+                </div>
+                <div class="modal-buttons">
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <button type="button" class="btn btn-danger" onclick="cerrarModalProducto()">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL FACTURA -->
+    <div id="modalFactura" class="modal">
+        <div class="modal-content modal-large">
+            <div class="modal-header"><h2>🧾 Agregar Productos por Factura</h2><span class="close" onclick="cerrarModalFactura()">&times;</span></div>
+            <div class="factura-info"><label>Número de factura:</label><input type="text" id="numeroFactura" placeholder="Ingrese el número de factura" autocomplete="off"></div>
+            <div class="factura-scanner"><label>Escanear productos:</label><input type="text" id="facturaScanner" placeholder="Escanear código aquí..." autocomplete="off"><div id="scanFeedback" class="scan-feedback"></div></div>
+            <div class="factura-lista"><h3>Productos agregados:</h3><table id="facturaTable"><thead><tr><th>Código</th><th>Nombre</th><th>Cajas</th><th>Unidades</th><th>Total Unds</th><th>Acción</th></tr></thead><tbody id="facturaBody"></tbody></table></div>
+            <div class="modal-buttons"><button class="btn btn-success" onclick="guardarFactura()">💾 Guardar Factura</button><button class="btn btn-danger" onclick="cerrarModalFactura()">Cancelar</button></div>
+        </div>
+    </div>
+
+    <!-- MODAL AJUSTE -->
+    <div id="modalAjuste" class="modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2>📦 Ajustar Productos</h2><span class="close" onclick="cerrarModalAjuste()">&times;</span></div>
+            <div class="ajuste-info"><label>Escanear producto:</label><input type="text" id="ajusteScanner" placeholder="Escanear código..." autocomplete="off"><div id="ajusteFeedback" class="ajuste-feedback"></div></div>
+            <div id="ajusteForm" style="display:none;">
+                <label>Producto:</label><input type="text" id="ajusteNombre" readonly>
+                <div class="form-row">
+                    <div class="form-group"><label>Cajas a agregar:</label><input type="number" id="ajusteCajas" min="0" value="0"></div>
+                    <div class="form-group"><label>Unidades a agregar:</label><input type="number" id="ajusteUnidades" min="0" value="0"></div>
+                </div>
+                <label>Tipo de ingreso:</label>
+                <select id="ajusteTipo"><option value="sinFactura">Sin factura</option><option value="conFactura">Con factura</option></select>
+                <div id="ajusteFacturaInput" style="display:none;"><label>Número de factura:</label><input type="text" id="ajusteNumeroFactura"></div>
+                <div class="modal-buttons"><button class="btn btn-success" onclick="confirmarAjuste()">Confirmar</button><button class="btn btn-danger" onclick="cancelarAjuste()">Cancelar</button></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PÉRDIDAS -->
+    <div id="modalPerdidas" class="modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2>⚠️ Registrar Productos Dañados/Perdidos</h2><span class="close" onclick="cerrarModalPerdidas()">&times;</span></div>
+            <form id="perdidasForm">
+                <label>Buscar producto (escanear):</label><input type="text" id="buscarPerdida" placeholder="Escanear código" autocomplete="off">
+                <div id="productoSugerencia" class="sugerencia"></div>
+                <div class="form-row">
+                    <div class="form-group"><label>Cajas dañadas:</label><input type="number" id="perdidaCajas" min="0" value="0"></div>
+                    <div class="form-group"><label>Unidades dañadas:</label><input type="number" id="perdidaUnidades" min="0" value="0"></div>
+                </div>
+                <label>Tipo de pérdida:</label>
+                <select id="tipoPerdida"><option value="Dañado">Dañado</option><option value="Vencido">Vencido</option><option value="Perdido">Perdido</option><option value="Robo">Robo</option></select>
+                <div class="modal-buttons"><button type="submit" class="btn btn-warning">Registrar Pérdida</button><button type="button" class="btn btn-danger" onclick="cerrarModalPerdidas()">Cancelar</button></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL UNIDADES -->
+    <div id="modalUnidades" class="modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2>📏 Unidades de Medida</h2><span class="close" onclick="cerrarModalUnidades()">&times;</span></div>
+            <div class="unidades-lista">
+                <div class="add-unidad"><input type="text" id="nuevaUnidadNombre" placeholder="Nombre"><input type="number" id="nuevaUnidadEq" placeholder="Equivalencia" value="1" min="1"><button class="btn btn-success" onclick="agregarUnidad()">➕ Agregar</button></div>
+                <ul id="listaUnidades" class="unidades-ul"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL CATEGORÍAS -->
+    <div id="modalCategorias" class="modal">
+        <div class="modal-content">
+            <div class="modal-header"><h2>🏷️ Gestionar Categorías</h2><span class="close" onclick="cerrarModalCategorias()">&times;</span></div>
+            <div class="categorias-lista">
+                <div class="add-categoria"><input type="text" id="nuevaCategoria" placeholder="Nueva categoría"><button class="btn btn-success" onclick="agregarCategoria()">➕ Agregar</button></div>
+                <ul id="listaCategorias" class="categorias-ul"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="inventario.js"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>POS - Minimarket</title>
+    <link rel="stylesheet" href="pos.css">
+</head>
+<body>
+    <div class="pos-wrapper">
+        <header>
+            <h1>💵 Punto de Venta</h1>
+            <div class="vendedor-info">
+                <span id="nombreVendedor"></span>
+                <button id="btnCerrarSesion">🚪 Salir</button>
+            </div>
+        </header>
+
+        <div class="pos-main">
+            <!-- Panel izquierdo: búsqueda y carrito -->
+            <div class="panel-izquierdo">
+                <div class="buscador">
+                    <input type="text" id="codigoProducto" placeholder="Código o nombre del producto" autofocus>
+                    <button id="btnAgregar">➕ Agregar</button>
+                </div>
+                <div class="carrito">
+                    <h3>🛒 Carrito</h3>
+                    <table id="tablaCarrito">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cant</th>
+                                <th>Precio</th>
+                                <th>Subtotal</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="carritoBody"></tbody>
+                    </table>
+                    <div class="total-box">
+                        <span>Total: Q<span id="totalCarrito">0</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Panel derecho: pago, cliente y acciones -->
+            <div class="panel-derecho">
+                <div class="pago-box">
+                    <label>💰 Efectivo recibido:</label>
+                    <input type="number" id="efectivoRecibido" step="any" placeholder="0.00">
+                    <label>💸 Cambio:</label>
+                    <input type="text" id="cambio" readonly placeholder="Q0.00">
+                </div>
+                <div class="cliente-box">
+                    <label>🧑 Cliente (opcional):</label>
+                    <input type="text" id="nombreCliente" placeholder="Nombre del comprador">
+                </div>
+                <div class="acciones">
+                    <button id="btnVender" class="btn-verde">✔️ Vender</button>
+                    <button id="btnCancelarVenta" class="btn-rojo">❌ Cancelar venta</button>
+                    <button id="btnAdmin" class="btn-naranja">👑 Admin</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para notificaciones de tareas -->
+    <div id="modalNotificacion" style="display:none; position:fixed; top:20%; left:50%; transform:translateX(-50%); background:white; border-radius:15px; padding:20px; box-shadow:0 4px 20px rgba(0,0,0,0.3); z-index:1000; max-width:400px; text-align:center;">
+        <h3>📢 Nueva tarea</h3>
+        <p id="mensajeNotificacion"></p>
+        <button id="cerrarNotificacion">Aceptar</button>
+    </div>
+
+    <!-- MODAL PARA CONTRASEÑA DEL ADMIN -->
+<div id="modalPasswordAdmin" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:2000; justify-content:center; align-items:center;">
+    <div style="background:white; border-radius:20px; padding:25px; width:300px; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,0.3);">
+        <h3>🔒 Acceso Administrador</h3>
+        <p>Ingrese la contraseña:</p>
+        <input type="password" id="passwordAdminInput" style="width:100%; padding:10px; margin:10px 0; border:2px solid #ddd; border-radius:8px;">
+        <div style="display:flex; gap:10px; justify-content:center;">
+            <button id="btnConfirmarPassword" style="background:#4caf50; color:white; border:none; padding:8px 20px; border-radius:8px; cursor:pointer;">Aceptar</button>
+            <button id="btnCancelarPassword" style="background:#f44336; color:white; border:none; padding:8px 20px; border-radius:8px; cursor:pointer;">Cancelar</button>
+        </div>
+    </div>
+</div>
+    <script src="pos.js"></script>
+</body>
+</html>

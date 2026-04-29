@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daños y Pérdidas - Minimarket</title>
+    <link rel="stylesheet" href="danados.css">
+</head>
+<body>
+    <div class="perdidas-container">
+        <header>
+            <h1>⚠️ Daños y Pérdidas</h1>
+            <button id="btnCerrar" class="btn-cerrar">✖ Cerrar</button>
+        </header>
+
+        <!-- Panel para registrar nueva pérdida -->
+        <div class="form-panel">
+            <h2>📝 Registrar nueva pérdida</h2>
+            <form id="formPerdida">
+                <div class="form-row">
+                    <div class="form-group" style="flex:2;">
+                        <label>🔍 Escanear o escribir código/nombre del producto:</label>
+                        <div style="display: flex; gap: 8px;">
+                            <input type="text" id="scannerProducto" placeholder="Código o nombre (presiona Enter)" autocomplete="off" style="flex:1;">
+                            <button type="button" id="btnLimpiarProducto" class="btn-limpiar">🗑️ Limpiar</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Producto seleccionado:</label>
+                        <input type="text" id="productoNombre" readonly>
+                        <input type="hidden" id="productoId">
+                    </div>
+                    <div class="form-group">
+                        <label>Código:</label>
+                        <input type="text" id="productoCodigo" readonly>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Stock actual (unidades):</label>
+                        <input type="text" id="stockActual" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Unidad de medida:</label>
+                        <input type="text" id="unidadMedida" readonly>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Cajas dañadas:</label>
+                        <input type="number" id="cajasPerdidas" min="0" value="0" step="1">
+                    </div>
+                    <div class="form-group">
+                        <label>Unidades dañadas:</label>
+                        <input type="number" id="unidadesPerdidas" min="0" value="0" step="1">
+                    </div>
+                    <div class="form-group">
+                        <label>Valor estimado pérdida (Q):</label>
+                        <input type="text" id="valorPerdida" readonly style="background:#eef2ff; font-weight:bold;">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Tipo de pérdida:</label>
+                        <select id="tipoPerdida">
+                            <option value="Dañado">Dañado</option>
+                            <option value="Vencido">Vencido</option>
+                            <option value="Perdido">Perdido</option>
+                            <option value="Robo">Robo</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Observaciones (opcional):</label>
+                        <textarea id="observaciones" rows="2" placeholder="Ej: Rotura de envase, fecha vencida..."></textarea>
+                    </div>
+                </div>
+                <div class="form-buttons">
+                    <button type="submit" class="btn-registrar" id="btnRegistrar" disabled>⚠️ Registrar pérdida</button>
+                    <button type="button" class="btn-limpiar" id="btnLimpiarFormulario">🗑️ Limpiar todo</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Resumen de pérdidas -->
+        <div class="resumen">
+            <div class="card-resumen">
+                <h3>📊 Total unidades perdidas</h3>
+                <p id="totalUnidadesPerdidas">0</p>
+            </div>
+            <div class="card-resumen">
+                <h3>💰 Valor total perdido (Q)</h3>
+                <p id="totalValorPerdido">Q0.00</p>
+            </div>
+            <div class="card-resumen">
+                <h3>📋 Número de registros</h3>
+                <p id="totalRegistros">0</p>
+            </div>
+        </div>
+
+        <!-- Tabla de historial con botón de limpiar -->
+        <div class="table-container">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h2>📋 Historial de pérdidas</h2>
+                <div class="export-buttons">
+                    <button id="btnExportarCSV" class="btn-excel">📎 Exportar Excel</button>
+                    <button id="btnExportarPDF" class="btn-pdf">📄 Exportar PDF</button>
+                    <button id="btnLimpiarTabla" class="btn-limpiar-tabla">🗑️ Limpiar toda la tabla</button>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <table id="tablaPerdidas">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Producto</th>
+                            <th>Cajas</th>
+                            <th>Unidades</th>
+                            <th>Total unds</th>
+                            <th>Tipo</th>
+                            <th>Valor (Q)</th>
+                            <th>Observaciones</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="perdidasBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="danados.js"></script>
+</body>
+</html>

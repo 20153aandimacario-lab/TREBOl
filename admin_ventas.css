@@ -1,0 +1,49 @@
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',sans-serif; }
+body { background: #f0f2f5; padding:30px; }
+.admin-container { max-width:1400px; margin:0 auto; background:white; border-radius:20px; box-shadow:0 10px 30px rgba(0,0,0,0.1); overflow:hidden; }
+header { background:linear-gradient(135deg,#667eea,#764ba2); color:white; padding:20px 30px; display:flex; justify-content:space-between; align-items:center; }
+.btn-cerrar { background:#f44336; color:white; border:none; padding:8px 20px; border-radius:8px; cursor:pointer; font-weight:bold; }
+.filtros { display:flex; flex-wrap:wrap; gap:15px; padding:20px 30px; background:#f9f9f9; border-bottom:1px solid #ddd; align-items:flex-end; }
+.filtro-group { display:flex; flex-direction:column; gap:5px; }
+.filtro-group label { font-weight:600; }
+.filtro-group input, .filtro-group select { padding:8px 12px; border:1px solid #ccc; border-radius:8px; min-width:150px; }
+.btn-filtrar, .btn-limpiar { padding:8px 20px; border:none; border-radius:8px; cursor:pointer; font-weight:bold; }
+.btn-filtrar { background:#4caf50; color:white; }
+.btn-limpiar { background:#ff9800; color:white; }
+.resumen { display:flex; gap:20px; padding:20px 30px; background:#eef2ff; }
+.card-resumen { background:white; border-radius:15px; padding:15px 25px; box-shadow:0 2px 5px rgba(0,0,0,0.1); flex:1; text-align:center; }
+.card-resumen h3 { font-size:16px; color:#555; margin-bottom:10px; }
+.card-resumen p { font-size:28px; font-weight:bold; color:#333; }
+.tabla-container { padding:20px 30px; overflow-x:auto; }
+table { width:100%; border-collapse:collapse; }
+th, td { border:1px solid #ddd; padding:10px; text-align:left; vertical-align:top; }
+th { background:#667eea; color:white; }
+tr:hover { background:#f1f5f9; }
+.btn-ver-detalle { background:#2196f3; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer; }
+@media (max-width:700px) { .filtros { flex-direction:column; align-items:stretch; } .resumen { flex-direction:column; } }
+
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',sans-serif; }
+body { background: #f0f2f5; padding:30px; }
+.admin-container { max-width:1400px; margin:0 auto; background:white; border-radius:20px; box-shadow:0 10px 30px rgba(0,0,0,0.1); overflow:hidden; }
+header { background:linear-gradient(135deg,#667eea,#764ba2); color:white; padding:20px 30px; display:flex; justify-content:space-between; align-items:center; }
+.btn-cerrar { background:#f44336; color:white; border:none; padding:8px 20px; border-radius:8px; cursor:pointer; font-weight:bold; }
+.filtros { display:flex; flex-wrap:wrap; gap:15px; padding:20px 30px; background:#f9f9f9; border-bottom:1px solid #ddd; align-items:flex-end; }
+.filtro-group { display:flex; flex-direction:column; gap:5px; }
+.filtro-group label { font-weight:600; }
+.filtro-group input, .filtro-group select { padding:8px 12px; border:1px solid #ccc; border-radius:8px; min-width:150px; }
+.btn-filtrar, .btn-limpiar, .btn-cerrar-dia { padding:8px 20px; border:none; border-radius:8px; cursor:pointer; font-weight:bold; }
+.btn-filtrar { background:#4caf50; color:white; }
+.btn-limpiar { background:#ff9800; color:white; }
+.btn-cerrar-dia { background:#e74c3c; color:white; }
+.resumen { display:flex; gap:20px; padding:20px 30px; background:#eef2ff; }
+.card-resumen { background:white; border-radius:15px; padding:15px 25px; box-shadow:0 2px 5px rgba(0,0,0,0.1); flex:1; text-align:center; }
+.card-resumen h3 { font-size:16px; color:#555; margin-bottom:10px; }
+.card-resumen p { font-size:28px; font-weight:bold; color:#333; }
+.tabla-container { padding:20px 30px; overflow-x:auto; }
+table { width:100%; border-collapse:collapse; }
+th, td { border:1px solid #ddd; padding:10px; text-align:left; vertical-align:top; }
+th { background:#667eea; color:white; }
+tr:hover { background:#f1f5f9; }
+.btn-cancelar-venta { background:#e74c3c; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer; margin-right:5px; }
+.btn-ver-detalle { background:#2196f3; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer; }
+@media (max-width:700px) { .filtros { flex-direction:column; align-items:stretch; } .resumen { flex-direction:column; } }

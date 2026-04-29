@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimarket - Panel Admin</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="header">
+            <div class="logo">
+                <h1>🏪 Minimarket Admin</h1>
+                <p>Panel de Control Central</p>
+            </div>
+            <button class="btn-logout" onclick="cerrarSesion()">
+                🚪 Cerrar Sesión
+            </button>
+        </div>
+
+        <div class="modules-grid">
+            <div class="module-card" data-modulo="dashboard">
+                <div class="module-icon">📊</div>
+                <h2>Dashboard</h2>
+                <p>Estadísticas y resumen general del minimarket</p>
+                <button class="btn-module" onclick="abrirModulo('dashboard')">
+                    Abrir Dashboard →
+                </button>
+            </div>
+
+            <div class="module-card" data-modulo="inventario">
+                <div class="module-icon">📦</div>
+                <h2>Inventario</h2>
+                <p>Gestionar productos, stock, precios y búsqueda</p>
+                <button class="btn-module" onclick="abrirModulo('inventario')">
+                    Abrir Inventario →
+                </button>
+            </div>
+
+            <div class="module-card" data-modulo="vendedores">
+                <div class="module-icon">👥</div>
+                <h2>Vendedores</h2>
+                <p>Crear y gestionar vendedores (máximo 3)</p>
+                <button class="btn-module" onclick="abrirModulo('vendedores')">
+                    Abrir Vendedores →
+                </button>
+            </div>
+
+            <div class="module-card" data-modulo="danados">
+                <div class="module-icon">⚠️</div>
+                <h2>Dañados / Perdidos</h2>
+                <p>Registrar productos dañados o pérdidas</p>
+                <button class="btn-module" onclick="abrirModulo('danados')">
+                    Abrir Dañados →
+                </button>
+            </div>
+
+            <div class="module-card" data-modulo="reportes">
+                <div class="module-icon">📈</div>
+                <h2>Reportes</h2>
+                <p>Ventas, productos en stock y estadísticas</p>
+                <button class="btn-module" onclick="abrirModulo('reportes')">
+                    Abrir Reportes →
+                </button>
+            </div>
+        </div>
+
+        <div class="system-info">
+            <h3>ℹ️ Información del Sistema</h3>
+            <p>Usuario: <span id="usuarioActual">Admin</span></p>
+            <p>Versión: 1.0.0</p>
+            <p>Módulos disponibles: 5</p>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

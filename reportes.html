@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes - Minimarket</title>
+    <link rel="stylesheet" href="reportes.css">
+</head>
+<body>
+    <div class="reportes-container">
+        <header>
+            <h1>📋 Reportes del Sistema</h1>
+            <div class="header-buttons">
+                <button id="btnActualizar" class="btn-generar">🔄 Generar Reporte</button>
+                <button id="btnCerrar" class="btn-cerrar">✖ Cerrar</button>
+            </div>
+        </header>
+
+        <!-- Pestañas (solo 3) -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="inventarioFactura">🧾 Inventario por Factura</button>
+            <button class="tab-btn" data-tab="inventario">📊 Inventario Total</button>
+            <button class="tab-btn" data-tab="ventas">💵 Detalle de Ventas</button>
+        </div>
+
+        <!-- Contenido de pestañas -->
+        
+        <!-- 1. INVENTARIO POR FACTURA -->
+        <div id="tabInventarioFactura" class="tab-content active">
+            <div class="tab-header">
+                <h2>Inventario actual desglosado por factura (usando precios actuales)</h2>
+                <div class="export-buttons">
+                    <button class="btn-excel" onclick="exportarInventarioFacturaToCSV()">📎 Exportar Excel</button>
+                    <button class="btn-pdf" onclick="exportarInventarioFacturaToPDF()">📄 Exportar PDF</button>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <table id="tablaInventarioFactura">
+                    <thead>
+                        <tr>
+                            <th>Factura / Proveedor</th>
+                            <th>Producto</th>
+                            <th>Cajas</th>
+                            <th>Unidades</th>
+                            <th>Precio Caja (Q)</th>
+                            <th>Precio Unidad (Q)</th>
+                            <th>Costo Total (Q)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventarioFacturaBody"></tbody>
+                    <tfoot id="inventarioFacturaFoot"></tfoot>
+                </table>
+            </div>
+        </div>
+
+        <!-- 2. INVENTARIO TOTAL -->
+        <div id="tabInventario" class="tab-content">
+            <div class="tab-header">
+                <h2>Inventario total de productos</h2>
+                <div class="export-buttons">
+                    <button class="btn-excel" onclick="exportarTablaToCSV('tablaInventario', 'inventario_total')">📎 Exportar Excel</button>
+                    <button class="btn-pdf" onclick="exportarTablaToPDF('inventario')">📄 Exportar PDF</button>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <table id="tablaInventario">
+                    <thead>
+                        <tr><th>Código</th><th>Nombre</th><th>Categoría</th><th>Unidad</th><th>Stock (Cajas)</th><th>Stock (Unidades)</th><th>Stock Total (Unds)</th><th>Valor Inventario (Q)</th></tr>
+                    </thead>
+                    <tbody id="inventarioBody"></tbody>
+                    <tfoot id="inventarioFoot"></tfoot>
+                </table>
+            </div>
+        </div>
+
+        <!-- 3. DETALLE DE VENTAS -->
+        <div id="tabVentas" class="tab-content">
+            <div class="tab-header">
+                <h2>Detalle de todas las ventas realizadas</h2>
+                <div class="export-buttons">
+                    <button class="btn-excel" onclick="exportarTablaToCSV('tablaVentas', 'detalle_ventas')">📎 Exportar Excel</button>
+                    <button class="btn-pdf" onclick="exportarTablaToPDF('ventas')">📄 Exportar PDF</button>
+                    <button id="btnLimpiarVentas" class="btn-limpiar">🗑️ Limpiar historial de ventas</button>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <table id="tablaVentas">
+                    <thead>
+                        <tr><th>ID</th><th>Fecha</th><th>Vendedor</th><th>Cliente</th><th>Total (Q)</th><th>Productos</th></tr>
+                    </thead>
+                    <tbody id="ventasBody"></tbody>
+                    <tfoot id="ventasFoot"></tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="reportes.js"></script>
+</body>
+</html>
